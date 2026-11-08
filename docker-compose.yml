@@ -1,0 +1,13 @@
+services:
+  running_bot:
+    build: .
+    container_name: telegram_running_bot
+    restart: unless-stopped
+    env_file:
+      - .env
+    volumes:
+      # Проброс ключа Google и файла бота для удобного обновления без пересборки контейнера
+      - ./credentials.json:/app/credentials.json:ro
+      - ./bot.py:/app/bot.py:ro
+    environment:
+      - TZ=Europe/Moscow
